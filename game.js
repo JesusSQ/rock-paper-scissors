@@ -67,24 +67,10 @@ function roundOfGame() {
     }
 }
 
-function game() {
-    let playerScore = 0;
-    let computerScore = 0;
-    for (let i = 0; i < 5; i++) {
-        let result = roundOfGame();
-        if (result === true) {
-            playerScore++;
-        } else if (result === false) {
-            computerScore++;
-        }
-    }
-    if (playerScore === computerScore) {
-        return "That's an absolutely tie!";
-    } else if (playerScore > computerScore) {
-        return "You have won the game. Congratulations!";
-    } else {
-        return "You have lost the game. Good luck next time!";
-    }
-}
+const rock = document.querySelector("#rock");
+const paper = document.querySelector('#paper');
+const scissors = document.querySelector('#scissors');
 
-console.log(game());
+rock.addEventListener('click', () => console.log('rock'));
+paper.addEventListener('click', () => console.log('paper'));
+scissors.addEventListener('click', () => console.log('scissors'));
