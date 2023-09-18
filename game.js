@@ -1,3 +1,11 @@
+let playerScore = 0;
+let computerScore = 0;
+
+function reset() {
+    playerScore = 0;
+    computerScore = 0;
+}
+
 function getComputerChoice() {
     let randomNumber = Math.floor(Math.random() * 3);
     let result;
@@ -16,61 +24,81 @@ function getComputerChoice() {
     return result;
 }
 
-function askForSelection() {
-    let answer = prompt("Type your choice", "");
-    let answerFormal = answer.toLowerCase();
-    if (answerFormal === "rock" ||
-        answerFormal === "paper" ||
-        answerFormal === "scissors") {
-        return answerFormal;
-    } else {
-        console.log("Invalid syntax");
-        return null;
-    }
+function setPlayerChoice(e) {
+    btnValue = this.value;
+    roundOfGame();
 }
 
 function roundOfGame() {
     let computerChoice = getComputerChoice();
-    let playerChoice = askForSelection();
+    let playerChoice = btnValue;
+    const result = document.querySelector(".result");
 
-    if (playerChoice !== null) {
-        if (playerChoice === computerChoice) {
-            console.log("Thats a tie");
-            return null;
-        } else if (playerChoice === "rock") {
-            if (computerChoice === "scissors") {
-                console.log("You Win! Rock beats Scissors");
-                return true;
-            } else {
-                console.log("You Lose! Paper beats Rock");
-                return false;
-            }
-        } else if (playerChoice === "paper") {
-            if (computerChoice === "rock") {
-                console.log("You Win! Paper beats Rock");
-                return true;
-            } else {
-                console.log("You Lose! Scissors beats Paper");
-                return false;
-            }
+    if (playerChoice === computerChoice) {
+        result.textContent = "That's a tie!";
+    } else if (playerChoice === "rock") {
+        if (computerChoice === "scissors") {
+            result.textContent = "You Win! Rock beats Scissors";
+            points(0);
         } else {
-            if (computerChoice === "paper") {
-                console.log("You Win! Scissors beats Paper");
-                return true;
-            } else {
-                console.log("You Lose! Rock beats Scissors");
-                return false;
-            }
+            result.textContent = "You Lose! Paper beats Rock";
+            points(1);
+        }
+    } else if (playerChoice === "paper") {
+        if (computerChoice === "rock") {
+            result.textContent = "You Win! Paper beats Rock";
+            points(0);
+        } else {
+            result.textContent = "You Lose! Scissors beats Paper";
+            points(1);
         }
     } else {
-        roundOfGame();
+        if (computerChoice === "paper") {
+            result.textContent = "You Win! Scissors beats Paper";
+            points(0);
+        } else {
+            result.textContent = "You Lose! Rock beats Scissors";
+            points(1);
+        }
     }
 }
+
+function points(num) {
+    if (num === 0) {
+        playerScore++;
+    } else {
+        computerScore++;
+    }
+
+    checkPoints();
+}
+
+function checkPoints() {
+    const container = document.querySelector(".container");
+    if (playerScore === 5) {
+        const finalText = document.createElement('div');
+        finalText.classList.add(".result");
+        finalText.textContent = `PLAYER WINS \n 
+        PLAYER: "${playerScore}" \n 
+        COMPUTER: "${computerScore}"`;
+        container.appendChild(finalText);
+        reset();
+    } else if (computerScore === 5) {
+        const finalText = document.createElement('div');
+        finalText.classList.add(".result");
+        finalText.textContent = `COMPUTER WINS \n 
+        PLAYER: "${playerScore}" \n 
+        COMPUTER: "${computerScore}"`;
+        container.appendChild(finalText);
+        reset();
+    }
+}
+
 
 const rock = document.querySelector("#rock");
 const paper = document.querySelector('#paper');
 const scissors = document.querySelector('#scissors');
 
-rock.addEventListener('click', () => console.log('rock'));
-paper.addEventListener('click', () => console.log('paper'));
-scissors.addEventListener('click', () => console.log('scissors'));
+rock.addEventListener('click', setPlayerChoice);
+paper.addEventListener('click', setPlayerChoice);
+scissors.addEventListener('click', setPlayerChoice);

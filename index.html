@@ -5,14 +5,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <button id="rock">ROCK</button>
-    <button id="paper">PAPER</button>
-    <button id="scissors">SCISSORS</button>
-
-
+    <div class="container">
+        <h1 id="title">ROCK-PAPER-SCISSORS</h1>
+        <img src="images/rock_paper_scissors.png" alt="introducing-image">
+        <div class="buttons">
+            <button value="rock" id="rock">ROCK</button>
+            <button value="paper" id="paper">PAPER</button>
+            <button value="scissors" id="scissors">SCISSORS</button>
+        </div>
+        <div class="result"></div>
+    </div>
 
     <script src="game.js"></script>
 </body>
